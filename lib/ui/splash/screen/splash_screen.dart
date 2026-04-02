@@ -10,46 +10,54 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorManager.background(context),
       body: Stack(
         children: [
-          // Centered Logo with enhanced fluid animation
+          // Centered Logo — scales to 40% of screen width on any device
           Center(
             child: Image.asset(
               AssetsManager.logo,
-              width: 220,
+              width: size.width * 0.40,
+              fit: BoxFit.contain,
             )
                 .animate(
                   onComplete: (controller) async {
-                    // Increased delay to 3 seconds before navigation
                     await Future.delayed(const Duration(seconds: 3));
                     if (context.mounted) {
-                      Navigator.pushReplacementNamed(context, StartScreen.routeName);
+                      Navigator.pushReplacementNamed(
+                        context,
+                        StartScreen.routeName,
+                      );
                     }
                   },
                 )
                 .fadeIn(duration: 1200.ms, curve: Curves.easeIn)
                 .slideY(
-                  begin: 1.0, // Starts from further down for more coverage
+                  begin: 1.0,
                   end: 0.0,
                   duration: 1500.ms,
-                  curve: Curves.elasticOut, // More fluid, bouncy entry
+                  curve: Curves.elasticOut,
                 )
                 .then()
-                .shimmer(duration: 1500.ms, color: ColorManager.primary(context).withOpacity(0.3)),
+                .shimmer(
+                  duration: 1500.ms,
+                  color: ColorManager.primary(context).withValues(alpha: 0.3),
+                ),
           ),
-          
-          // "Amr" Text at the bottom with synchronized bold styling
+
+          // "Amr" text — proportional bottom padding
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 48),
+              padding: EdgeInsets.only(bottom: size.height * 0.06),
               child: Text(
-                "Amr",
+                'Amr',
                 style: TextStyle(
                   color: ColorManager.primary(context),
-                  fontSize: 24,
+                  fontSize: size.width * 0.06,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -57,7 +65,12 @@ class SplashScreen extends StatelessWidget {
           )
               .animate()
               .fadeIn(delay: 500.ms, duration: 1000.ms)
-              .slideY(begin: 0.5, end: 0.0, duration: 1200.ms, curve: Curves.easeOutBack),
+              .slideY(
+                begin: 0.5,
+                end: 0.0,
+                duration: 1200.ms,
+                curve: Curves.easeOutBack,
+              ),
         ],
       ),
     );

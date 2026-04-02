@@ -13,6 +13,8 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
@@ -22,26 +24,32 @@ class StartScreen extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              AssetsManager.beingCreative,
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
+            // Hero image scales to 40% of screen height
+            SizedBox(
+              height: size.height * 0.40,
+              width: double.infinity,
+              child: Image.asset(
+                AssetsManager.beingCreative,
+                fit: BoxFit.contain,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Text(
               StringsManager.startTitle,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               StringsManager.startDesc,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -52,7 +60,7 @@ class StartScreen extends StatelessWidget {
                 Languageswitch("en"),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -63,7 +71,7 @@ class StartScreen extends StatelessWidget {
                 ThemeSwitch("light"),
               ],
             ),
-            Spacer(),
+            SizedBox(height: size.height * 0.05),
             SizedBox(
               width: double.infinity,
               child: CustomButton(
@@ -84,3 +92,4 @@ class StartScreen extends StatelessWidget {
     );
   }
 }
+
