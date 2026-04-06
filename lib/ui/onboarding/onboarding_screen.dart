@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_sadat/core/resources/AssetsManager.dart';
 import 'package:project_sadat/core/resources/color_manager.dart';
-import 'package:project_sadat/core/reusable/custom_buttom.dart';
+import 'package:project_sadat/core/widgets/custom_button.dart';
 import 'package:project_sadat/ui/signin/login/login_screen.dart';
 import 'package:project_sadat/ui/onboarding/widgets/onboarding_page.dart';
 
@@ -21,21 +21,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   static const Duration _pageAnimDuration = Duration(milliseconds: 320);
   static const Curve _pageCurve = Curves.easeInOutCubic;
 
-  final List<({String title, String description})> _pages = [
+  final List<({String title, String description, String image})> _pages = [
     (
       title: 'Find Events That Inspire You',
       description:
           'Dive into a world of events crafted to fit your unique interests. Whether you\'re into live music, art workshops, professional networking, or simply discovering new experiences, we have something for everyone. Our curated recommendations will help you explore, connect, and make the most of every opportunity around you.',
+      image: AssetsManager.onboarding1,
     ),
     (
       title: 'Effortless Event Planning',
       description:
           'Take the hassle out of organizing events with our all-in-one planning tools. From setting up invites and managing RSVPs to scheduling reminders and coordinating details, we\'ve got you covered. Plan with ease and focus on what matters – creating an unforgettable experience for you and your guests.',
+      image: AssetsManager.onboarding2,
     ),
     (
       title: 'Connect with Friends & Share Moments',
       description:
           'Make every event memorable by sharing the experience with others. Our platform lets you invite friends, keep everyone in the loop, and celebrate moments together. Capture and share the excitement with your network, so you can relive the highlights and cherish the memories.',
+      image: AssetsManager.onboarding3,
     ),
   ];
 
@@ -129,6 +132,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   return OnboardingPage(
                     title: page.title,
                     description: page.description,
+                    image: page.image,
                     dots: _PageDots(
                       count: _pages.length,
                       activeIndex: _currentPage,

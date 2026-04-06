@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project_sadat/core/resources/AssetsManager.dart';
 import 'package:project_sadat/core/resources/color_manager.dart';
-import 'package:project_sadat/core/reusable/custom_buttom.dart';
-import 'package:project_sadat/core/reusable/custom_text_field.dart';
+import 'package:project_sadat/core/widgets/custom_button.dart';
+import 'package:project_sadat/core/widgets/custom_text_field.dart';
 import 'package:project_sadat/ui/add_event/pages/event_details_page.dart';
 import 'package:project_sadat/ui/add_event/widgets/event_input_field.dart';
+import 'package:project_sadat/model/event_model.dart';
 
 class AddEventPage extends StatefulWidget {
   static const String routeName = 'add_event';
@@ -18,6 +19,7 @@ class AddEventPage extends StatefulWidget {
 
 class _AddEventPageState extends State<AddEventPage> {
   int _selectedCategoryIndex = 0;
+  bool _isPublic = true;
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
 
@@ -198,10 +200,73 @@ class _AddEventPageState extends State<AddEventPage> {
                 actionText: 'Choose time',
                 onActionTap: () {},
               ),
+              const SizedBox(height: 16),
+              // Privacy Switch
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: ColorManager.inputFill(context),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: ColorManager.primary(context).withValues(alpha: 0.2),
+                  ),
+                ),
+                child: SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Row(
+                    children: [
+                      Icon(
+                        _isPublic ? Icons.public : Icons.lock_outline,
+                        color: ColorManager.primary(context),
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        'Event Privacy',
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          color: ColorManager.textPrimary(context),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(left: 36),
+                    child: Text(
+                      _isPublic
+                          ? 'Public: Visible to everyone'
+                          : 'Private: Only visible to you',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: ColorManager.textSecondary(context),
+                      ),
+                    ),
+                  ),
+                  value: _isPublic,
+                  activeColor: ColorManager.primary(context),
+                  onChanged: (bool value) {
+                    setState(() {
+                      _isPublic = value;
+                    });
+                  },
+                ),
+              ),
               const SizedBox(height: 32),
               // Submit Button
               CustomButton(
                 onClick: () {
+                  final newEvent = EventItemData(
+                    title: _titleController.text,
+                    description: _descriptionController.text,
+                    dateDay: '21', // Placeholder for now
+                    dateMonth: 'Jan', // Placeholder for now
+                    imageAsset: currentCategory.$3,
+                    imageAssetDark: currentCategory.$4,
+                    isPublic: _isPublic,
+                  );
+                  // For now, just navigate to details
                   Navigator.push(
                     context,
                     MaterialPageRoute(

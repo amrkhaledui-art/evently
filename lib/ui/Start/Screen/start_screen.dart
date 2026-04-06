@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_sadat/core/resources/AssetsManager.dart';
 import 'package:project_sadat/core/resources/stringsManager.dart';
-import 'package:project_sadat/core/reusable/custom_buttom.dart';
+import 'package:project_sadat/core/widgets/custom_button.dart';
 import 'package:project_sadat/ui/Start/Widgts/LanguageSwitch.dart';
 import 'package:project_sadat/ui/Start/Widgts/ThemeSwitch.dart';
 import 'package:project_sadat/ui/onboarding/onboarding_screen.dart';

@@ -3,6 +3,7 @@ import 'package:project_sadat/core/resources/color_manager.dart';
 import 'package:project_sadat/ui/add_event/pages/add_event_page.dart';
 import 'package:project_sadat/ui/home/pages/favorites_page.dart';
 import 'package:project_sadat/ui/home/pages/home_page.dart';
+import 'package:project_sadat/ui/profile/pages/profile_page.dart';
 
 class MainAppShell extends StatefulWidget {
   static const String routeName = 'main_shell';
@@ -16,7 +17,11 @@ class MainAppShell extends StatefulWidget {
 class _MainAppShellState extends State<MainAppShell> {
   int _currentIndex = 0;
 
-  final List<Widget> _tabs = [const HomePage(), const FavoritesPage()];
+  final List<Widget> _tabs = [
+    const HomePage(),
+    const FavoritesPage(),
+    const ProfilePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -41,16 +46,22 @@ class _MainAppShellState extends State<MainAppShell> {
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
         type: BottomNavigationBarType.fixed,
-        backgroundColor: ColorManager.background(context),
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? const Color(0xff1A1C1E) // Slightly lighter dark shade
+            : ColorManager.background(context),
         selectedItemColor: ColorManager.primary(context),
-        unselectedItemColor: ColorManager.unselectedTab(context),
+        unselectedItemColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.grey.shade400 // Better contrast for dark mode
+            : ColorManager.unselectedTab(context),
         selectedLabelStyle: theme.textTheme.bodyMedium?.copyWith(
           fontWeight: FontWeight.w600,
           fontSize: 12,
         ),
         unselectedLabelStyle: theme.textTheme.bodyMedium?.copyWith(
           fontSize: 12,
-          color: ColorManager.unselectedTab(context),
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.grey.shade400
+              : ColorManager.unselectedTab(context),
         ),
         items: const [
           BottomNavigationBarItem(
@@ -63,8 +74,14 @@ class _MainAppShellState extends State<MainAppShell> {
             activeIcon: Icon(Icons.favorite_rounded),
             label: 'Favorites',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline_rounded),
+            activeIcon: Icon(Icons.person_rounded),
+            label: 'Profile',
+          ),
         ],
       ),
     );
   }
 }
+

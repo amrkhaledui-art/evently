@@ -5,6 +5,7 @@ import 'package:project_sadat/core/resources/color_manager.dart';
 import 'package:project_sadat/core/theme/theme_mode_scope.dart';
 import 'package:project_sadat/ui/home/data/sample_events.dart';
 import 'package:project_sadat/ui/home/widgets/event_card.dart';
+import 'package:project_sadat/model/event_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,14 +26,20 @@ class _HomePageState extends State<HomePage> {
     ('Book Club', AssetsManager.bookIcon),
   ];
 
-  int _selectedCategory = 0;
+  int _selectedCategoryIndex = 0;
 
-  late List<EventItemData> _events;
+  List<EventItemData> get _filteredEvents {
+    final allEvents = sampleEvents();
+    final selectedLabel = _categories[_selectedCategoryIndex].$1;
 
-  @override
-  void initState() {
-    super.initState();
-    _events = sampleEvents();
+    if (selectedLabel == 'All') return allEvents;
+
+    return allEvents.where((event) {
+      // Simple matching logic based on title or description for demo purposes
+      // In a real app, the EventItemData would have a 'category' field.
+      final content = '${event.title} ${event.description}'.toLowerCase();
+      return content.contains(selectedLabel.toLowerCase());
+    }).toList();
   }
 
   void _toggleTheme() {
@@ -49,7 +56,9 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: ColorManager.background(context),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          final maxWidth = constraints.maxWidth > 600 ? 600.0 : constraints.maxWidth;
+          final maxWidth = constraints.maxWidth > 600
+              ? 600.0
+              : constraints.maxWidth;
           return SafeArea(
             child: Align(
               alignment: Alignment.topCenter,
@@ -87,7 +96,8 @@ class _HomePageState extends State<HomePage> {
                               IconButton(
                                 onPressed: _toggleTheme,
                                 icon: SvgPicture.asset(
-                                  Theme.of(context).brightness == Brightness.dark
+                                  Theme.of(context).brightness ==
+                                          Brightness.dark
                                       ? AssetsManager.sun
                                       : AssetsManager.moon,
                                   colorFilter: ColorFilter.mode(
@@ -123,14 +133,19 @@ class _HomePageState extends State<HomePage> {
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemCount: _categories.length,
-                          separatorBuilder: (_, __) => const SizedBox(width: 12),
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(width: 12),
                           itemBuilder: (context, index) {
-                            final selected = index == _selectedCategory;
+                            final selected = index == _selectedCategoryIndex;
                             final (label, icon) = _categories[index];
                             return GestureDetector(
-                              onTap: () => setState(() => _selectedCategory = index),
+                              onTap: () => setState(
+                                () => _selectedCategoryIndex = index,
+                              ),
                               child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
                                 decoration: BoxDecoration(
                                   color: selected
                                       ? ColorManager.primary(context)
@@ -154,12 +169,13 @@ class _HomePageState extends State<HomePage> {
                                     const SizedBox(width: 8),
                                     Text(
                                       label,
-                                      style: theme.textTheme.bodyMedium?.copyWith(
-                                        color: selected
-                                            ? Colors.white
-                                            : ColorManager.primary(context),
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                      style: theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            color: selected
+                                                ? Colors.white
+                                                : ColorManager.primary(context),
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -169,21 +185,13 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      ..._events.map(
+                      ..._filteredEvents.map(
                         (e) => EventCard(
                           event: e,
                           onFavoriteToggle: () {
+                            // This would normally update a database or global state
                             setState(() {
-                              final index = _events.indexOf(e);
-                              _events[index] = EventItemData(
-                                title: e.title,
-                                description: e.description,
-                                dateDay: e.dateDay,
-                                dateMonth: e.dateMonth,
-                                imageAsset: e.imageAsset,
-                                imageAssetDark: e.imageAssetDark,
-                                isFavorite: !e.isFavorite,
-                              );
+                              // For now, toggle is not persistent in sampleEvents()
                             });
                           },
                         ),

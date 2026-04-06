@@ -4,6 +4,7 @@ import 'package:project_sadat/core/resources/AssetsManager.dart';
 import 'package:project_sadat/core/resources/color_manager.dart';
 import 'package:project_sadat/ui/home/data/sample_events.dart';
 import 'package:project_sadat/ui/home/widgets/event_card.dart';
+import 'package:project_sadat/model/event_model.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});

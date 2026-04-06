@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_sadat/core/resources/color_manager.dart';
-import 'package:project_sadat/core/reusable/custom_buttom.dart';
-import 'package:project_sadat/core/reusable/custom_text_field.dart';
+import 'package:project_sadat/core/widgets/custom_button.dart';
+import 'package:project_sadat/core/widgets/custom_text_field.dart';
 import 'package:project_sadat/ui/signin/forget_password/forget_password_screen.dart';
 import 'package:project_sadat/ui/signin/register/register_screen.dart';
 import 'package:project_sadat/ui/signin/widgets/auth_google_button.dart';

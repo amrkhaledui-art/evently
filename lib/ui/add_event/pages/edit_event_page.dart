@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project_sadat/core/resources/AssetsManager.dart';
 import 'package:project_sadat/core/resources/color_manager.dart';
-import 'package:project_sadat/core/reusable/custom_buttom.dart';
-import 'package:project_sadat/core/reusable/custom_text_field.dart';
+import 'package:project_sadat/core/widgets/custom_button.dart';
+import 'package:project_sadat/core/widgets/custom_text_field.dart';
 import 'package:project_sadat/ui/add_event/widgets/event_input_field.dart';
 
 class EditEventPage extends StatefulWidget {

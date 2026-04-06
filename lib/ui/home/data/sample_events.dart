@@ -1,5 +1,5 @@
 import 'package:project_sadat/core/resources/AssetsManager.dart';
-import 'package:project_sadat/ui/home/widgets/event_card.dart';
+import 'package:project_sadat/model/event_model.dart';
 
 List<EventItemData> sampleEvents() {
   return [
@@ -10,6 +10,7 @@ List<EventItemData> sampleEvents() {
       dateMonth: 'Jan',
       imageAsset: AssetsManager.birthday,
       imageAssetDark: AssetsManager.birthday_dark,
+      isPublic: true,
     ),
     const EventItemData(
       title: 'Book Club Meeting',
@@ -18,6 +19,7 @@ List<EventItemData> sampleEvents() {
       dateMonth: 'Jan',
       imageAsset: AssetsManager.bookClub,
       imageAssetDark: AssetsManager.bookClub_dark,
+      isPublic: true,
     ),
     const EventItemData(
       title: 'Update Development Method',
@@ -26,6 +28,7 @@ List<EventItemData> sampleEvents() {
       dateMonth: 'Jan',
       imageAsset: AssetsManager.meeting,
       imageAssetDark: AssetsManager.meeting_dark,
+      isPublic: true,
     ),
     const EventItemData(
       title: 'Sports Day',
@@ -34,6 +37,7 @@ List<EventItemData> sampleEvents() {
       dateMonth: 'Jan',
       imageAsset: AssetsManager.sport,
       imageAssetDark: AssetsManager.sport_dark,
+      isPublic: true,
     ),
   ];
 }

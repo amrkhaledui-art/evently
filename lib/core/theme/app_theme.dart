@@ -1,5 +1,5 @@
  import 'package:flutter/material.dart';
-import 'package:project_sadat/core/resources/colorsManager.dart';
+import 'package:project_sadat/core/resources/color_manager.dart';
 
 abstract class AppTheme {
   static ThemeData lightTheme = ThemeData(

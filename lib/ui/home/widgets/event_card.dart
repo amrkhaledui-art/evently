@@ -1,26 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_sadat/core/resources/AssetsManager.dart';
 import 'package:project_sadat/core/resources/color_manager.dart';
-
-class EventItemData {
-  final String title;
-  final String description;
-  final String dateDay;
-  final String dateMonth;
-  final String imageAsset;
-  final String imageAssetDark;
-  final bool isFavorite;
-
-  const EventItemData({
-    required this.title,
-    required this.description,
-    required this.dateDay,
-    required this.dateMonth,
-    required this.imageAsset,
-    required this.imageAssetDark,
-    this.isFavorite = false,
-  });
-}
+import 'package:project_sadat/model/event_model.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard({super.key, required this.event, this.onFavoriteToggle});
